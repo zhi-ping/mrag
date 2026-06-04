@@ -18,7 +18,7 @@ MRAG（Minimal RAG）是一个完全运行在**本地**的检索增强生成（R
 ## 目录结构
 
 ```
-<学号>_mrag/
+mrag/
 ├── CMakeLists.txt                # CMake 构建文件
 ├── README.md                     # 使用说明文档
 ├── DESIGN.md                     # 设计说明文档
