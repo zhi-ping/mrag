@@ -16,7 +16,7 @@ build/
 models/*.gguf
 
 # Database files
-db/
+db/*
 
 # Document files (large, may have copyright)
 doc/*.txt
