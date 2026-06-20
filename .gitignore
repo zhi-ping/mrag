@@ -37,6 +37,7 @@ Thumbs.db
 # Agent
 .codex
 .claude
+CLAUDE.md
 # Document files (large, may have copyright)
 doc/*.txt
 

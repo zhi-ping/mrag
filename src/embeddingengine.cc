@@ -127,9 +127,9 @@ void EmbeddingEngine::reset(const AppConfig& config) {
         
         EmbeddingEngine new_emb;
         new_emb.loadEmbedding(config);
-
-        llama_free(this->context_);
-        llama_model_free(this->model_);
+        new_emb.n_ctx_ = config.emb_n_ctx;
+        new_emb.n_batch_ = config.emb_n_batch;
+        new_emb.n_ubatch_ = config.emb_n_ubatch;
 
         *this = std::move(new_emb);   
         std::println(stderr, "已切换向量模型为: {}", config.emb_model_path);
