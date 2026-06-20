@@ -23,8 +23,10 @@ LlamaModelBase::~LlamaModelBase() {
 
 LlamaModelBase::LlamaModelBase(LlamaModelBase&& other) noexcept 
         : model_(other.model_), context_(other.context_) {
-        other.model_ = nullptr;
-        other.context_ = nullptr;
+        if (this != &other) {
+            other.model_ = nullptr;
+            other.context_ = nullptr;
+        }
 }
 
 LlamaModelBase& LlamaModelBase::operator=(LlamaModelBase&& other) noexcept {
@@ -59,6 +61,9 @@ void LlamaModelBase::loadEmbedding(const AppConfig& config) {
         throw std::runtime_error("无法加载模型文件: " + config.emb_model_path);
     }
     context_ = llama_init_from_model(model_, ctx_params);
+    if(!context_) {
+        throw std::runtime_error("向量模型上下文初始化失败");
+    }
 }
 
 void LlamaModelBase::loadGeneration(const AppConfig& config) {
@@ -78,6 +83,9 @@ void LlamaModelBase::loadGeneration(const AppConfig& config) {
         throw std::runtime_error("无法加载模型文件: " + config.gen_model_path);
     }
     context_ = llama_init_from_model(model_, ctx_params);
+    if(!context_) {
+        throw std::runtime_error("生成模型上下文初始化失败");
+    }
 }
 
 std::vector<llama_token> LlamaModelBase::tokenize(const std::string& text, bool add_special, bool parse_special) const {

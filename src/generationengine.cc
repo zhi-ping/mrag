@@ -143,8 +143,13 @@ void GenerationEngine::reset(const AppConfig& config) {
         GenerationEngine new_gen;
         new_gen.loadGeneration(config);
 
-        llama_free(this->context_);
-        llama_model_free(this->model_);
+        new_gen.n_batch_ = config.gen_n_batch;
+        new_gen.n_ctx_ = config.gen_n_ctx;
+        new_gen.n_ubatch_ = config.gen_n_ubatch;
+        new_gen.max_output_tokens_ = config.max_output_tokens;
+        new_gen.temperature_ = config.temperature;
+        new_gen.top_k_sampler_ = config.top_k_sampler;
+        new_gen.top_p_ = config.top_p;
 
         *this = std::move(new_gen);   
         std::println(stderr, "已切换生成模型为: {}", config.gen_model_path);
